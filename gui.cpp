@@ -1,6 +1,11 @@
 #include "gui.h"
 
-GUI::GUI()
+
+Gui::Gui()
+{
+}
+
+void Gui::draw()
 {
 
 }

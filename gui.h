@@ -2,10 +2,14 @@
 #define GUI_H
 
 
-class GUI
+class Gui
 {
 public:
-	GUI();
+	Gui();
+	void draw();
+
+protected:
+	// TCODConsole *console;
 };
 
 #endif // GUI_H
