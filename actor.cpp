@@ -45,7 +45,7 @@ char *Actor::getName()
 	if(name != NULL) {
 		return name;
 	}
-	return (char*)"Unkown Entity";
+	return (char*)"Unknown Entity";
 }
 
 void Actor::draw()

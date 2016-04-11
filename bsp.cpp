@@ -3,6 +3,7 @@
 #include "bsp.h"
 
 // This code is "borrowed" from libtcod.
+// TODO : Clean up this mess.
 
 
 Bsp::Bsp(Bsp *father, bool left) {

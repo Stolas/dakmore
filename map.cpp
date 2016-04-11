@@ -4,6 +4,9 @@
 #include "monster.h"
 #include "sprites.h"
 
+
+// TODO: Reintroduce TCODMap;
+
 Map::Map(int width, int height)
 {
 	this->width = width;

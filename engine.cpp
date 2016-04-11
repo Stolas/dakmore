@@ -1,6 +1,8 @@
 #include <SDL2/SDL_image.h>
 #include "engine.h"
 
+#define GAME_NAME ("Dungeons of Dakmor")
+
 static void panic(char *message, ...) {
 	va_list args;
 	char buffer[128];
@@ -12,7 +14,7 @@ static void panic(char *message, ...) {
 	buffer[sizeof(buffer) - 1] = '\0';
 
 	fputs(buffer, stderr);
-	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, "Dungeons of Dakmor", buffer, NULL);
+	SDL_ShowSimpleMessageBox(SDL_MESSAGEBOX_ERROR, GAME_NAME, buffer, NULL);
 
 	SDL_Quit();
 
@@ -24,7 +26,7 @@ Engine::Engine() {
 		panic("Unable to initialize SDL: %s.", SDL_GetError());
 	}
 
-	window = SDL_CreateWindow("Dungeons of Dakmor", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
+	window = SDL_CreateWindow(GAME_NAME, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 600, SDL_WINDOW_SHOWN);
 	if (window == NULL) {
 		panic("Unable to create a window: %s.", SDL_GetError());
 	}
@@ -44,7 +46,13 @@ Engine::Engine() {
 }
 
 Engine::~Engine() {
-	// TODO: actors.clearAndDelete();
+	std::list<Actor*>::iterator iterator = actors.begin();
+	while(iterator != actors.end()) {
+		delete (*iterator);
+	}
+
+	//delete actors;
+	actors.clear();;
 	delete map;
 	delete ui;
 	delete rnd;
@@ -55,7 +63,6 @@ void Engine::pollEvent()
 {
 	SDL_Event event;
 	while(SDL_PollEvent(&event)) {
-	// TCODSystem::checkForEvent(TCOD_KEY_PRESSED, &key, NULL);
 		switch(event.type) {
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym) {
@@ -146,13 +153,22 @@ void Engine::putChar(int x, int y, uint16_t sprite)
 
 
 	// This overflips
-	fetch_offset.x = sprite * TILE_SIZE;
-	fetch_offset.y = 0;
+	int total_per_row = fetch_offset.w / TILE_SIZE;
+	int row_id = 0;
 
-	while(fetch_offset.x >= spritesheet->w) {
-		fetch_offset.y += TILE_SIZE;
-		fetch_offset.x -= spritesheet->w;
+	while(sprite > total_per_row) {
+		sprite -= total_per_row;
+		row_id++;
 	}
+
+	fetch_offset.x = sprite * TILE_SIZE;
+	fetch_offset.y = row_id * TILE_SIZE;
+	// fetch_offset.y = 0;
+
+	// while(fetch_offset.x >= spritesheet->w) {
+	// 	fetch_offset.y += TILE_SIZE;
+	// 	fetch_offset.x -= spritesheet->w;
+	// }
 	// end this
 
 	fetch_offset.w = fetch_offset.h = TILE_SIZE;
