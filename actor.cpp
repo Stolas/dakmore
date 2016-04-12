@@ -9,11 +9,11 @@ Actor::Actor()
 {
 	position.x = 0;
 	position.y = 0;
-	sprite = '?';
+	sprite = SpriteUnknown;
 	name = NULL;
 }
 
-Actor::Actor(const char *name, char sprite, int x, int y)
+Actor::Actor(const char *name, Sprite sprite, int x, int y)
 {
 	setName(name);
 	this->sprite = sprite;

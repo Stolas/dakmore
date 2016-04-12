@@ -6,26 +6,36 @@ Engine engine;
 
 int main(int argc, char **argv)
 {
+	bool exit;
 	uint32_t previous_milliseconds, current_milliseconds, elapsed_milliseconds;
+	previous_milliseconds = 0;
 
 	// TODO: Load config
 	engine.state = StartUp;
 
-	while(engine.state != Closing) {
+	for(exit=false;!exit;) {
 		current_milliseconds = SDL_GetTicks();
 		elapsed_milliseconds = current_milliseconds - previous_milliseconds;
 
 		switch(engine.state) {
 			case StartUp:
+				printf("State -> Startup\n");
 				engine.map->computeFov();
 				engine.state = Idle;
 				break;
 			case Idle:
 				engine.pollEvent();
+				if(engine.state != Closing) {
+					exit = true;
+				}
 				break;
 			case NewTurn:
+				printf("State -> NewTurn\n");
 				engine.update();
 				engine.state = Idle;
+				break;
+			default: 
+				printf("State -> Closing\n");
 				break;
 		}
 
@@ -36,6 +46,6 @@ int main(int argc, char **argv)
 
 		engine.draw();
 	}
+	printf("Clean Exit\n");
 	return 0;
 }
-

@@ -2,6 +2,8 @@
 #include <time.h>
 #include "random.h"
 
+// TODO: Impl. M-Twister here. DO _NOT_ use srand or rand.
+
 Random::Random()
 {
 	srand(time(NULL));

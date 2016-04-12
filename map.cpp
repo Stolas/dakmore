@@ -21,14 +21,18 @@ Map::Map(int width, int height)
 		}
 	}
 
-	Bsp bsp;
-	bsp.x = bsp.y = 0;
-	bsp.w = this->width;
-	bsp.h = this->height;
+	// Bsp bsp;
+	// bsp.x = bsp.y = 0;
+	// bsp.w = this->width;
+	// bsp.h = this->height;
 
-	bsp.splitRecursive(NULL, 8, ROOM_MAX_SIZE, ROOM_MAX_SIZE, 1.5f, 1.5f);
-	BspListener listener(this);
-	bsp.traverseInvertedLevelOrder(&listener, NULL);
+	// bsp.splitRecursive(NULL, 8, ROOM_MAX_SIZE, ROOM_MAX_SIZE, 1.5f, 1.5f);
+	// BspListener listener(this);
+	// bsp.traverseInvertedLevelOrder(&listener, NULL);
+	createRoom(true, 10, 10, 20, 20);
+	
+	
+	spawnMonster(12, 15);
 }
 
 Map::~Map()
@@ -53,26 +57,26 @@ void Map::computeFov()
 
 void Map::draw()
 {
-	char sprite;
+	Sprite sprite;
 	for(int x = 0; x < width ; ++x) {
 		for(int y = 0; y < height; ++y) {
 			if(isInFov(x, y)) {
 				switch(getTileType(x, y)) {
 					case Wall:
-						sprite = SPRITE_WALL;
+						sprite = SpriteWall;
 						break;
 					default:
-						sprite = SPRITE_FLOOR;
+						sprite = SpriteFloor;
 						break;
 				}
 			} else {
 				if(getTileExplored(x, y)) {
 					switch(getTileType(x, y)) {
-						case Wall:
-							sprite = SPRITE_WALL_SHADE;
+						case Wall: // TODO : Add Shade
+							sprite = SpriteWall;
 							break;
 						default:
-							sprite = SPRITE_FLOOR_SHADE;
+							sprite = SpriteFloor;
 							break;
 					}
 				}
@@ -212,8 +216,8 @@ void Map::spawnMonster(int x, int y)
 {
 	Random *rng = engine.getRandomInstance();
 	if(rng->getInt(0, 100) < 80) {
-		engine.actors.push_back(new Monster("Demon", 'D', x, y));
+		engine.actors.push_back(new Monster("Demon", SpriteDemon, x, y));
 	} else {
-		engine.actors.push_back(new Monster("Goblin", 'g', x, y));
+		engine.actors.push_back(new Monster("Goblin", SpriteDemon, x, y));
 	}
 }

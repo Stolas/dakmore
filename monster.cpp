@@ -1,7 +1,7 @@
 #include "monster.h"
 
 
-Monster::Monster(const char *name, char skin, int x, int y) : Actor(name, skin, x, y)
+Monster::Monster(const char *name, Sprite skin, int x, int y) : Actor(name, skin, x, y)
 {
 	// TODO: Set strneght
 }

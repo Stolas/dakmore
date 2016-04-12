@@ -4,11 +4,11 @@
 
 Player::Player() : Actor()
 {
-	sprite = '@';
+	sprite = SpritePlayer;
 	setName("player");
 }
 
-Player::Player(int x, int y) : Actor("player", 0, x, y)
+Player::Player(int x, int y) : Actor("player", SpritePlayer, x, y)
 {
 }
 
