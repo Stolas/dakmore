@@ -2,12 +2,13 @@
 #define ACTOR_H
 
 #include <SDL2/SDL.h>
+#include "sprites.h"
 
 class Actor
 {
 public:
 	Actor();
-	Actor(const char *name, char sprite, int x, int y);
+	Actor(const char *name, Sprite sprite, int x, int y);
 
 	char* getName();
 	void draw();
@@ -23,7 +24,7 @@ protected:
 	void freeName();
 
 	char *name;
-	char sprite;
+	Sprite sprite;
 };
 
 #endif // ACTOR_H

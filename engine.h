@@ -8,6 +8,7 @@
 #include "map.h"
 #include "gui.h"
 #include "random.h"
+#include "sprites.h"
 
 #define TILE_SIZE (16)
 
@@ -39,7 +40,7 @@ public:
 	void update();
 	void draw();
 
-	void putChar(int x, int y, uint16_t sprite);
+	void putChar(int x, int y, Sprite sprite);
 	Random *getRandomInstance();
 	void switchSpritesheet();
 

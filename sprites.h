@@ -1,10 +1,13 @@
 #ifndef SPRITES_H
 #define SPRITES_H
 
-#define SPRITE_PLAYER      (5)
-#define SPRITE_WALL        (68)
-#define SPRITE_WALL_SHADE  (68)
-#define SPRITE_FLOOR       (1)
-#define SPRITE_FLOOR_SHADE  (1)
+
+typedef enum Sprite {
+	SpriteUnknown = 0,
+	SpritePlayer = 0,
+	SpriteWall = 50,
+	SpriteFloor = 49,
+	SpriteDemon = 1000
+} Sprite;
 
 #endif // SPRITES_H

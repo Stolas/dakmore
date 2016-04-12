@@ -6,7 +6,7 @@
 class Monster : public Actor
 {
 public:
-	Monster(const char *name, char skin, int x, int y);
+	Monster(const char *name, Sprite skin, int x, int y);
 	~Monster();
 
 	void update();
