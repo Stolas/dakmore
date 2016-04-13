@@ -3,7 +3,7 @@
 
 #define GAME_NAME ("Dungeons of Dakmor")
 
-static void panic(char *message, ...) 
+static void panic(char *message, ...)
 {
 	va_list args;
 	char buffer[128];
@@ -22,7 +22,7 @@ static void panic(char *message, ...)
 	exit(EXIT_FAILURE);
 }
 
-Engine::Engine() 
+Engine::Engine()
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) {
 		panic("Unable to initialize SDL: %s.", SDL_GetError());
@@ -47,14 +47,14 @@ Engine::Engine()
 	loadSpritesheetSurfaces();
 }
 
-Engine::~Engine() 
+Engine::~Engine()
 {
 	// std::list<Actor*>::iterator iterator = actors.begin();
 	// while(iterator != actors.end()) {
 	// 	// TODO: Cleanup
 	// 	// delete (*iterator);
 	// }
- 
+
 	// //delete actors;
 	// actors.clear();;
 	delete map;
@@ -68,7 +68,6 @@ void Engine::pollEvent()
 {
 	SDL_Event event;
 	while(SDL_PollEvent(&event)) {
-		printf("Event -> %d\n", event.type);
 		switch(event.type) {
 			case SDL_KEYDOWN:
 				switch(event.key.keysym.sym) {
@@ -158,6 +157,7 @@ void Engine::putChar(int x, int y, Sprite sprite)
 	int sprite_x = (int)sprite;
 
 	int total_per_row = fetch_offset.w / TILE_SIZE;
+	if(total_per_row < 1) { return; } // TODO: How can this be.
 	int row_id = 0;
 
 	while(sprite_x > total_per_row) {

@@ -29,9 +29,11 @@ Map::Map(int width, int height)
 	// bsp.splitRecursive(NULL, 8, ROOM_MAX_SIZE, ROOM_MAX_SIZE, 1.5f, 1.5f);
 	// BspListener listener(this);
 	// bsp.traverseInvertedLevelOrder(&listener, NULL);
-	createRoom(true, 10, 10, 20, 20);
-	
-	
+	createRoom(true, 11, 12, 11, 12);
+
+	createRoom(false, 14, 14, 20, 20);
+
+
 	spawnMonster(12, 15);
 }
 

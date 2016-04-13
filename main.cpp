@@ -6,14 +6,14 @@ Engine engine;
 
 int main(int argc, char **argv)
 {
-	bool exit;
+	bool running;
 	uint32_t previous_milliseconds, current_milliseconds, elapsed_milliseconds;
 	previous_milliseconds = 0;
 
 	// TODO: Load config
 	engine.state = StartUp;
 
-	for(exit=false;!exit;) {
+	for(running=true;running;) {
 		current_milliseconds = SDL_GetTicks();
 		elapsed_milliseconds = current_milliseconds - previous_milliseconds;
 
@@ -25,8 +25,8 @@ int main(int argc, char **argv)
 				break;
 			case Idle:
 				engine.pollEvent();
-				if(engine.state != Closing) {
-					exit = true;
+				if(engine.state == Closing) {
+					running = false;
 				}
 				break;
 			case NewTurn:
@@ -34,7 +34,7 @@ int main(int argc, char **argv)
 				engine.update();
 				engine.state = Idle;
 				break;
-			default: 
+			default:
 				printf("State -> Closing\n");
 				break;
 		}
@@ -46,6 +46,5 @@ int main(int argc, char **argv)
 
 		engine.draw();
 	}
-	printf("Clean Exit\n");
 	return 0;
 }
