@@ -1,7 +1,7 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "sprites.h"
 
 class Actor

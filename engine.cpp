@@ -1,4 +1,5 @@
-#include <SDL2/SDL_image.h>
+#include <SDL_image.h>
+#include <stdio.h>
 #include "engine.h"
 
 #define GAME_NAME ("Dungeons of Dakmor")

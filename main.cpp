@@ -1,4 +1,4 @@
-#include <SDL2/SDL.h>
+#include <SDL.h>
 #include "engine.h"
 
 // F-it, a global to make the pain go away.
@@ -19,7 +19,6 @@ int main(int argc, char **argv)
 
 		switch(engine.state) {
 			case StartUp:
-				printf("State -> Startup\n");
 				engine.map->computeFov();
 				engine.state = Idle;
 				break;
@@ -30,12 +29,10 @@ int main(int argc, char **argv)
 				}
 				break;
 			case NewTurn:
-				printf("State -> NewTurn\n");
 				engine.update();
 				engine.state = Idle;
 				break;
 			default:
-				printf("State -> Closing\n");
 				break;
 		}
 

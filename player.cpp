@@ -70,8 +70,8 @@ void Player::fightWithActor(int x, int y)
 
 	Monster* monster = dynamic_cast<Monster*>(actor);
 	if(monster) {
-		printf("Fighting with: %s\n", monster->getName());
+		// printf("Fighting with: %s\n", monster->getName());
 	} else {
-		printf("Hitting a: %s\n", actor->getName());
+		// printf("Hitting a: %s\n", actor->getName());
 	}
 }
