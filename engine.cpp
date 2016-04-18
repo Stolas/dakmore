@@ -1,4 +1,4 @@
-#include <SDL_image.h>
+#include <SDL2/SDL_image.h>
 #include <stdio.h>
 #include "engine.h"
 
@@ -150,6 +150,9 @@ void Engine::draw()
 
 void Engine::putChar(int x, int y, Sprite sprite)
 {
+	printf("Drawing %d @ %d, %d\n", sprite, x, y);
+
+	// Found the bug: Area.. HERE!
 	SDL_Rect draw_offset, fetch_offset;
 
 	draw_offset.x = (x*TILE_SIZE);
@@ -170,6 +173,8 @@ void Engine::putChar(int x, int y, Sprite sprite)
 	fetch_offset.y = row_id * TILE_SIZE;
 	fetch_offset.w = fetch_offset.h = TILE_SIZE;
 
+	printf("Fetch x: %d, row: %d\n", fetch_offset.x, fetch_offset.y);
+
 	SDL_Surface* surface = SDL_GetWindowSurface(window);
 	SDL_BlitSurface(spritesheet, &fetch_offset, surface, &draw_offset);
 
@@ -184,6 +189,9 @@ Random *Engine::getRandomInstance()
 void Engine::loadSpritesheetSurfaces()
 {
 	spritesheet = IMG_Load("tiles1.png");
+	if(!spritesheet) {
+		panic("Failed to load spritesheet: ", IMG_GetError());
+	}
 }
 
 void Engine::switchSpritesheet()

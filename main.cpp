@@ -1,4 +1,4 @@
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include "engine.h"
 
 // F-it, a global to make the pain go away.
@@ -6,6 +6,7 @@ Engine engine;
 
 int main(int argc, char **argv)
 {
+	(void)argc; (void) argv;
 	bool running;
 	uint32_t previous_milliseconds, current_milliseconds, elapsed_milliseconds;
 	previous_milliseconds = 0;
@@ -20,7 +21,7 @@ int main(int argc, char **argv)
 		switch(engine.state) {
 			case StartUp:
 				engine.map->computeFov();
-				engine.state = Idle;
+				engine.state = NewTurn;
 				break;
 			case Idle:
 				engine.pollEvent();

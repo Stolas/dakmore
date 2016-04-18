@@ -1,7 +1,7 @@
 #ifndef ENGINE_H
 #define ENGINE_H
 
-#include <SDL.h>
+#include <SDL2/SDL.h>
 #include <list>
 #include "actor.h"
 #include "player.h"
